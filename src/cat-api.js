@@ -36,7 +36,6 @@ export function fetchBreeds() {
 //         })
 //         .catch(error => {
 //             throw error; // Обробка помилок у виклику коду, який викликав цю функцію
-//         });
-// }
+//         })
 
 
