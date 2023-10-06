@@ -1,7 +1,10 @@
 import axios from "axios";
 
+// Оголосити і призначити значення ключа API
+const apiKey = "live_KRGK14iZREdwtEGhSnQsBkuiz58h0w8qAZZgn6jKPJGgKxBlnwB42Xn50Fc0oquv";
+
 // Налаштування заголовку x-api-key
-axios.defaults.headers.common["x-api-key"] = live_KRGK14iZREdwtEGhSnQsBkuiz58h0w8qAZZgn6jKPJGgKxBlnwB42Xn50Fc0oquv;
+axios.defaults.headers.common["x-api-key"] = apiKey;
 
 
 // Функція для виконання HTTP-запиту та отримання списку порід
@@ -22,7 +25,7 @@ export function fetchBreeds() {
 
 }
 
-// // Функція для виконання HTTP-запиту та отримання даних про кота за ідентифікатором породи
+// Функція для виконання HTTP-запиту та отримання даних про кота за ідентифікатором породи
 // export function fetchCatByBreed(breedId) {
 //     // URL для запиту до API The Cat API з параметром breed_ids
 //     const apiUrl = `https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`;
@@ -37,5 +40,5 @@ export function fetchBreeds() {
 //         .catch(error => {
 //             throw error; // Обробка помилок у виклику коду, який викликав цю функцію
 //         })
-
+// }
 
