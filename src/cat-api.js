@@ -25,20 +25,36 @@ export function fetchBreeds() {
 
 }
 
-// Функція для виконання HTTP-запиту та отримання даних про кота за ідентифікатором породи
-// export function fetchCatByBreed(breedId) {
-//     // URL для запиту до API The Cat API з параметром breed_ids
-//     const apiUrl = `https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`;
 
-//     // Виконання GET-запиту до API
-//     return axios.get(apiUrl)
-//         .then(response => {
-//             // Отримання даних про кота з відповіді API
-//             const catData = response.data[0]; // Беремо перший об'єкт з масиву, якщо він є
-//             return catData;
-//         })
-//         .catch(error => {
-//             throw error; // Обробка помилок у виклику коду, який викликав цю функцію
-//         })
-// }
 
+// фича 2
+
+
+
+export function fetchCatByBreed(breedId) {
+    const apiUrl = `https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`;
+
+    return axios.get(apiUrl)
+        .then(response => {
+            const catData = response.data[0]; // Отримуємо перший об'єкт з результатів
+
+            // Отримуємо інформацію про породу кота
+            const breedInfo = catData.breeds[0];
+            const breedName = breedInfo.name;
+            const breedDescription = breedInfo.description;
+            const breedTemperament = breedInfo.temperament;
+
+            // Отримуємо URL зображення кота
+            const catImageUrl = catData.url;
+
+            return {
+                breedName,
+                breedDescription,
+                breedTemperament,
+                catImageUrl,
+            };
+        })
+        .catch(error => {
+            throw error;
+        });
+}
