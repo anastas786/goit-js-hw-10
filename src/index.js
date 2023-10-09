@@ -40,15 +40,6 @@ fetchBreeds()
         console.error("Error fetching breeds:", error);
     });
 
-// Опції для select елементу
-function populateBreedSelect(breeds) {
-    breeds.forEach(breed => {
-        const option = document.createElement("option");
-        option.value = breed.id;
-        option.textContent = breed.name;
-        selectElement.appendChild(option);
-    });
-}
 
 // Обробник події при виборі опції в селекті
 selectElement.addEventListener("change", () => {
