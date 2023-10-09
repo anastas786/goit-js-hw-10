@@ -1,5 +1,5 @@
-
 import { fetchBreeds } from "./cat-api.js";
+import { fetchCatByBreed } from "./cat-api.js";
 
 // Функція для заповнення select опціями
 function populateBreedSelect(breeds) {
@@ -27,10 +27,6 @@ console.log(populateBreedSelect)
 
 // фича 2//
 
-// index.js
-
-import { fetchBreeds } from "./cat-api.js";
-import { fetchCatByBreed } from "./cat-api.js"; // Імпортуємо нову функцію
 
 const selectElement = document.querySelector(".breed-select");
 const catInfoElement = document.querySelector(".cat-info");
@@ -68,8 +64,10 @@ selectElement.addEventListener("change", () => {
                 <p>Temperament: ${catData.breedTemperament}</p>
                 <img src="${catData.catImageUrl}" alt="Cat Image">
             `;
+            console.log("Selected Breed ID:", selectedBreedId);
         })
         .catch(error => {
             console.error("Error fetching cat data:", error);
         });
+
 });
