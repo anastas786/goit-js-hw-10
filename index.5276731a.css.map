@@ -1,1 +1,0 @@
-{"mappings":"ACCA","sources":["index.5276731a.css","src/css/common.css"],"sourcesContent":[".cat-info {\n  gap: 30px;\n  display: flex;\n}\n\n/*# sourceMappingURL=index.5276731a.css.map */\n","\n.cat-info {\ndisplay: flex;\ngap: 30;\n}\n\n"],"names":[],"version":3,"file":"index.5276731a.css.map"}
