@@ -1,5 +1,12 @@
 import { fetchBreeds, fetchCatByBreed } from "./cat-api.js";
 
+const selectElement = document.querySelector(".breed-select");
+const catInfoElement = document.querySelector(".cat-info");
+const loader = document.querySelector(".loader");
+const error = document.querySelector(".error");
+
+//Фича 1//
+
 // Функція для заповнення select опціями
 
 function populateBreedSelect(breeds) {
@@ -20,33 +27,14 @@ fetchBreeds()
     })
     .catch(error => {
         console.error("Error fetching breeds:", error);
+        showError();
+        hideError();
     });
 
 
 
-// фича 2//
+//Фича 2// пишемо функцію для отримання інформації про кота
 
-
-const selectElement = document.querySelector(".breed-select");
-const catInfoElement = document.querySelector(".cat-info");
-
-
-// Опрацювання стану завантаження..
-
-
-const loader = document.querySelector(".loader");
-const error = document.querySelector(".error");
-
-// Під час запиту за списком порід
-function showLoaderForBreeds() {
-    selectElement.style.display = "none"; // Приховати селект порід
-    loader.style.display = "block"; // Показати завантажувач
-    error.style.display = "none"; // Приховати повідомлення про помилку (якщо воно було видимим)
-
-}
-showLoaderForBreeds();
-
-// Обробник події при виборі опції в селекті
 selectElement.addEventListener("change", () => {
     const selectedBreedId = selectElement.value;
     showLoaderForCatInfo();
@@ -64,15 +52,28 @@ selectElement.addEventListener("change", () => {
         })
         .catch(error => {
             console.error("Error fetching cat data:", error);
+            showError();
+            hideError();
         })
         .finally(() => {
             // Після завершення запиту приховуємо завантажувач
-            hideLoader();
+
             catInfoElement.style.display = "block";
+            hideLoader();
         });
 });
+// Опрацювання стану завантаження.. фича 3
 
-// Опрацювання стану завантаження..
+// Під час запиту за списком порід
+function showLoaderForBreeds() {
+    selectElement.classList.add("hidden");
+    loader.classList.remove("hidden");
+    error.classList.add("hidden-error"); // Приховуємо елемент помилки
+}
+showLoaderForBreeds();
+
+
+// Обробник події при виборі опції в селекті
 
 //Функція для приховання елемента
 function hideElement(element) {
@@ -86,9 +87,10 @@ function showElement(element) {
 // Під час запиту за інформацією про кота
 function showLoaderForCatInfo() {
     console.log("Showing loader for cat info...");
-    catInfoElement.style.display = "none"; // Приховати інформацію про кота
+    catInfoElement.classList.add("hidden");
+    loader.classList.remove("hidden");
+    error.classList.add("hidden-error"); // Приховуємо елемент помилки
     loader.style.display = "block"; // Показати завантажувач
-    error.style.display = "none"; // Приховати повідомлення про помилку (якщо воно було видимим)
 }
 
 fetchBreeds()
@@ -98,6 +100,8 @@ fetchBreeds()
     .catch(error => {
         // Обробка помилок
         error.style.display = "block"; // Показати повідомлення про помилку
+        showError();
+        hideError();
     })
     .finally(() => {
         // Після завершення запиту
@@ -105,6 +109,22 @@ fetchBreeds()
     });
 // Після завершення будь-якого запиту
 function hideLoader() {
+    selectElement.classList.remove("hidden");
+    loader.classList.add("hidden");
     selectElement.style.display = "block"; // Показати селект порід
     loader.style.display = "none"; // Приховати завантажувач
-}  
+}
+
+//Фича 4 //
+
+// Функція для показу елемента помилки
+function showError() {
+    const errorElement = document.querySelector(".error");
+    errorElement.classList.remove("hidden-error");
+}
+
+// Функція для приховування елемента помилки
+function hideError() {
+    const errorElement = document.querySelector(".error");
+    errorElement.classList.add("hidden-error");
+}

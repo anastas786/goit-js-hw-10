@@ -10,7 +10,7 @@ axios.defaults.headers.common["x-api-key"] = apiKey;
 // Функція для виконання HTTP-запиту та отримання списку порід
 export function fetchBreeds() {
     // URL для запиту до API The Cat API
-    const apiUrl = "https://api.thecatapi.com/v1/breeds";
+    const apiUrl = "https://api.thecatapi.com/v1/breeds1";
 
     // Виконання GET-запиту до API
     return axios.get(apiUrl)

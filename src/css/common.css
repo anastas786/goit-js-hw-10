@@ -4,3 +4,11 @@ display: flex;
 gap: 30;
 }
 
+.hidden {
+    display: none;
+}
+
+/* Створюємо клас для показу елемента помилки */
+.error {
+    display: block;
+}
