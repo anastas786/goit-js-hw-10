@@ -1,17 +1,16 @@
 import { fetchBreeds, fetchCatByBreed } from "./cat-api.js";
+import SlimSelect from 'slim-select';
+
 
 const selectElement = document.querySelector(".breed-select");
 const catInfoElement = document.querySelector(".cat-info");
 const loader = document.querySelector(".loader");
-const error = document.querySelector(".error");
 
-//Фича 1//
 
-// Функція для заповнення select опціями
 
+// Функция для заполнения select опциями
 function populateBreedSelect(breeds) {
-    const selectElement = document.querySelector(".breed-select");
-
+    selectElement.innerHTML = ''; // Очистка select перед добавлением опций
     breeds.forEach(breed => {
         const option = document.createElement("option");
         option.value = breed.id;
@@ -20,7 +19,7 @@ function populateBreedSelect(breeds) {
     });
 }
 
-// Завантаження порід та наповнення select елементу опціями
+// Загрузка пород и заполнение select элемента опциями
 fetchBreeds()
     .then(breeds => {
         populateBreedSelect(breeds);
@@ -28,20 +27,20 @@ fetchBreeds()
     .catch(error => {
         console.error("Error fetching breeds:", error);
         showError();
-        hideError();
     });
 
 
 
-//Фича 2// пишемо функцію для отримання інформації про кота
+
+// Обработчик события при выборе опции в select//
 
 selectElement.addEventListener("change", () => {
     const selectedBreedId = selectElement.value;
     showLoaderForCatInfo();
-    // Викликаємо функцію для отримання інформації про кота за ідентифікатором породи
+    // Вызываем функцию для получения информации о коте по идентификатору породы
     fetchCatByBreed(selectedBreedId)
         .then(catData => {
-            // Відображаємо інформацію про кота на сторінці
+            // Отображаем информацию о коте на странице
             catInfoElement.innerHTML = `
                 <h2>${catData.breedName}</h2>
                 <p>Description: ${catData.breedDescription}</p>
@@ -53,77 +52,56 @@ selectElement.addEventListener("change", () => {
         .catch(error => {
             console.error("Error fetching cat data:", error);
             showError();
-            hideError();
         })
         .finally(() => {
-            // Після завершення запиту приховуємо завантажувач
-
+            // После завершения запроса скрываем индикатор загрузки
             catInfoElement.style.display = "block";
             hideLoader();
         });
 });
-// Опрацювання стану завантаження.. фича 3
 
-// Під час запиту за списком порід
+// Показываем индикатор загрузки при запросе списка пород
 function showLoaderForBreeds() {
     selectElement.classList.add("hidden");
     loader.classList.remove("hidden");
-    error.classList.add("hidden-error"); // Приховуємо елемент помилки
+    hideError(); // Скрываем элемент ошибки
 }
 showLoaderForBreeds();
 
-
-// Обробник події при виборі опції в селекті
-
-//Функція для приховання елемента
-function hideElement(element) {
-    element.classList.add("hidden");
-}
-
-// Функція для показу елемента
-function showElement(element) {
-    element.classList.remove("hidden");
-}
-// Під час запиту за інформацією про кота
+// Показываем индикатор загрузки при запросе информации о коте
 function showLoaderForCatInfo() {
-    console.log("Showing loader for cat info...");
     catInfoElement.classList.add("hidden");
     loader.classList.remove("hidden");
-    error.classList.add("hidden-error"); // Приховуємо елемент помилки
-    loader.style.display = "block"; // Показати завантажувач
+    hideError(); // Скрываем элемент ошибки
 }
 
+// Загрузка пород и обработка результатов запроса
 fetchBreeds()
     .then(data => {
-        // Обробка результатів запиту
+        // Обработка результатов запроса
     })
     .catch(error => {
-        // Обробка помилок
-        error.style.display = "block"; // Показати повідомлення про помилку
+        // Обработка ошибок
         showError();
-        hideError();
     })
     .finally(() => {
-        // Після завершення запиту
+        // После завершения запроса
         hideLoader();
     });
-// Після завершення будь-якого запиту
+
+// Скрытие индикатора загрузки после любого запроса
 function hideLoader() {
     selectElement.classList.remove("hidden");
     loader.classList.add("hidden");
-    selectElement.style.display = "block"; // Показати селект порід
-    loader.style.display = "none"; // Приховати завантажувач
 }
 
-//Фича 4 //
-
-// Функція для показу елемента помилки
+// Функция для показа элемента ошибки
 function showError() {
     const errorElement = document.querySelector(".error");
     errorElement.classList.remove("hidden-error");
 }
 
-// Функція для приховування елемента помилки
+// Функция для скрытия элемента ошибки
 function hideError() {
     const errorElement = document.querySelector(".error");
     errorElement.classList.add("hidden-error");

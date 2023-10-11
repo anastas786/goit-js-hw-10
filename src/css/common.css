@@ -1,14 +1,77 @@
 
-.cat-info {
-display: flex;
-gap: 30;
+* {
+
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+
 }
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: flex-start;
+
+}
+
+select.breed-select {
+    width: 200px;
+    padding: 10px;
+    margin: 20px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+p.loader,
+p.error {
+    font-size: 14px;
+    color: #333;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 20px;
+    text-align: center;
+}
+
+
+
+.cat-info {
+    
+    margin: 20px;
+    height: 400px;
+
+
+} 
+
+.cat-info>img {
+    display: flex;
+    max-width: 100%;
+    border: 2px solid #ccc;
+   }
+
+
 
 .hidden {
     display: none;
+    width: 400px;
+
 }
 
-/* Створюємо клас для показу елемента помилки */
-.error {
+
+.error.hidden-error {
+    display: none;
+}
+
+/* Отдельный стиль для показа элемента ошибки при неудачной загрузке */
+.error:not(.hidden-error) {
     display: block;
 }
