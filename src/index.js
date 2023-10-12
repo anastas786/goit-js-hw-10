@@ -1,11 +1,9 @@
 import { fetchBreeds, fetchCatByBreed } from "./cat-api.js";
 import SlimSelect from 'slim-select';
 
-
 const selectElement = document.querySelector(".breed-select");
 const catInfoElement = document.querySelector(".cat-info");
 const loader = document.querySelector(".loader");
-
 
 
 // Функция для заполнения select опциями
@@ -23,6 +21,7 @@ function populateBreedSelect(breeds) {
 fetchBreeds()
     .then(breeds => {
         populateBreedSelect(breeds);
+        clearCatInfo(); // Очистити інформацію про кота при успішному запиті
     })
     .catch(error => {
         console.error("Error fetching breeds:", error);
@@ -30,13 +29,15 @@ fetchBreeds()
     });
 
 
-
-
 // Обработчик события при выборе опции в select//
 
 selectElement.addEventListener("change", () => {
     const selectedBreedId = selectElement.value;
     showLoaderForCatInfo();
+
+    // Очистити інформацію про кота перед новим запитом
+    clearCatInfo();
+
     // Вызываем функцию для получения информации о коте по идентификатору породы
     fetchCatByBreed(selectedBreedId)
         .then(catData => {
@@ -105,4 +106,9 @@ function showError() {
 function hideError() {
     const errorElement = document.querySelector(".error");
     errorElement.classList.add("hidden-error");
+}
+
+// Функція для очищення інформації про кота
+function clearCatInfo() {
+    catInfoElement.innerHTML = '';
 }

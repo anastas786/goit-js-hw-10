@@ -25,9 +25,7 @@ export function fetchBreeds() {
 
 }
 
-
 // фича 2
-
 
 export function fetchCatByBreed(breedId) {
 
@@ -57,4 +55,3 @@ export function fetchCatByBreed(breedId) {
             throw error;
         });
 }
-
